@@ -10,12 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF.H
-# define LIBFTPRINTF.H
+#ifndef LIBFTPRINTF_H
+# define LIBFTPRINTF_H
 
-// # include "libft.h"
+# include "./libft/libft.h"
 # include <stdarg.h>
 
 int	ft_printf(char const *, ...);
+char const	*write_until(char const *format, char letter);
+void	interpret_conversion(char const *format, va_list *args);
+
+
 
 #endif
