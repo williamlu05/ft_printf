@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write_and_interpret.c                              :+:      :+:    :+:   */
+/*   interpret.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wlu-bjor <wlu-bjor@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 11:47:55 by wlu-bjor          #+#    #+#             */
-/*   Updated: 2026/05/05 13:04:53 by wlu-bjor         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:22:24 by wlu-bjor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,23 @@
 	Writes all characters up to 'letter' and returns 
 	the string 'format' pointed to the char after 'letter'
 */
-
-void	interpret_conversion(char const *format, va_list *args)
+int	interpret_conversion(char const *format, va_list *args)
 {
 	if (*format == 'c' || *format == '%')
-		ft_putchar_fd(va_arg(*args, int), 1);
-	else if (*format == 's')
-		ft_putstr_fd(va_arg(*args, char *), 1);
-	else if (*format == 'p')
-	{
-		
-	}
-	else if (*format == 'd')
-		ft_putnbr_fd(va_arg(*args, int), 1);
-	else if(*format == 'i')
-		ft_putnbr_fd(va_arg(*args, unsigned int), 1);
-	else if (*format == 'x'){}
-		//ft_putnbr_base_fd(va_arg(*args, int), 16, 'a', 1);
-	else if (*format == 'X'){}
-		//ft_putnbr_base_fd(va_arg(*args, int), 16, 'A', 1);
-}
-
-char const	*write_until(char const *format, char letter)
-{
-	int	i;
-
-	i = 0;
-	if (format[i] != letter)
-		ft_putchar_fd(format[i++], 1);
-	if (format[i] == letter)
-		return (format + i + 1);
-	return (NULL);
+		return (ft_putchar_fd(va_arg(*args, int), 1));
+	if (*format == 's')
+		return (ft_putstr_fd(va_arg(*args, char *), 1));
+	if (*format == 'p')
+		return (ft_putptr_fd(va_arg(*args, unsigned long long), 1));
+	if (*format == 'd')
+		return (ft_putnbr_fd(va_arg(*args, int), 1));
+	if (*format == 'i')
+		return (ft_putnbr_fd(va_arg(*args, int), 1));
+	if (*format == 'u')
+		return (ft_putnbr_unsigned_fd(va_arg(*args, unsigned int), 10, '0', 1));
+	if (*format == 'x')
+		return (ft_putnbr_base16_fd(va_arg(*args, int), 'a', 1));
+	if (*format == 'X')
+		return (ft_putnbr_base16_fd(va_arg(*args, int), 'A', 1));
+	return (0);
 }

@@ -6,67 +6,41 @@
 /*   By: wlu-bjor <wlu-bjor@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 23:19:04 by wlu-bjor          #+#    #+#             */
-/*   Updated: 2026/05/05 13:05:19 by wlu-bjor         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:28:16 by wlu-bjor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-char const	*write_until(char const *format, char letter);
-void	interpret_conversion(char const *format, va_list *args);
-
-int	pos_of(char const *format, char c, int iter)
-{
-	while (format[iter] != c)
-		iter++;
-	return (iter);
-}
-
-int	ft_num_occ_conversions(char const *format)
-{
-	int	result;
-	int	i;
-
-	result = 0;
-	i = pos_of(format, '%', 0);
-	while (format[i])
-	{
-		i++;
-		result++;
-		if (format[i + 1] == '%')
-			i++;
-		i = pos_of(format, '%', i);
-	}
-	return (result);
-}
-
 int	ft_printf(char const *format, ...)
-
 {
-	int		num_args;
 	va_list	args;
-	int		i;
+	int		written;
 
-	num_args = ft_num_occ_conversions(format);
+	written = 0;
 	va_start(args, format);
 
-	i = 0;
-	while (i < num_args)
+	while (*format)
 	{
-		format = write_until(format, '%');
-		if (format)
-			interpret_conversion(format, &args);
-		i++;
+		if (*format == '%')
+			written += interpret_conversion(++format, &args);
+		else
+			written += ft_putchar_fd(*format, 1);
+		format++;
 	}
-	return (1);
+	va_end(args);
+	return (written);
 }
+
 
 #include <stdio.h>
 int main(void)// int argc, char **argv
 {
-	ft_printf("estoy hablando conl a persona %i", 10);
+	ft_printf("%i", ft_printf("estoy hablando con la persona %x: ", -10));
 	printf("\n");
-	printf("estoy hablando conl a persona %i", 10);
+
+	//char string[20] = "hola";
+	printf("%i", printf("estoy hablando con la persona %x: ", -10));
 }
 
 
