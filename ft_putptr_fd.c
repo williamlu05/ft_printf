@@ -6,11 +6,11 @@
 /*   By: wlu-bjor <wlu-bjor@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:55:59 by wlu-bjor          #+#    #+#             */
-/*   Updated: 2026/05/05 16:59:41 by wlu-bjor         ###   ########.fr       */
+/*   Updated: 2026/05/08 20:28:50 by wlu-bjor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_putptr_fd(unsigned long long n, int fd)
 {
@@ -18,6 +18,10 @@ int	ft_putptr_fd(unsigned long long n, int fd)
 
 	result = 0;
 	result += ft_putstr_fd("0x", 1);
-	result += ft_putnbr_unsigned_fd(n, 10, '0', fd);
+	if (result < 0)
+		return (-1);
+	result += ft_putnbr_base16_fd(n, fd, 'a');
+	if (result < (0 + 2))
+		return (-1);
 	return (result);
 }
