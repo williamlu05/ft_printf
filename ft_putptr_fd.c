@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 
+// Writes the pointer in its designated format, returns -1 if failed
 int	ft_putptr_fd(unsigned long n, int fd)
 {
 	int	result;
