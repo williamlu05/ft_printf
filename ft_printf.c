@@ -65,26 +65,6 @@ int	ft_printf(char const *format, ...)
 }
 
 /*
-#include <stdio.h>
-int main(void)// int argc, char **argv
-{
-	ft_printf("%i", ft_printf("estoy hablando%% con la persona %x: ", 2147483647, 0));
-	printf("\n");
-
-	//char string[20] = "hola";
-	printf("%i", printf("estoy hablando%% con la persona %x, %s: ", 2147483647, "HOLA"));
-
-	char *str = NULL;
-    void *ptr = NULL;
-
-	printf("\n");
-    printf("String nulo (%%s): %s\n", str);
-    printf("Puntero nulo (%%p): %p\n", ptr);
-
-    return (0);
-}
-*/
-/*
 PLANNING:
 
 printf returns the number of characters printed on screen
@@ -101,6 +81,5 @@ Things to remember:
 - Freeing all of the allocated space used with the auxilliary linked list,
 	both in a correct or failed execution
 - You can use the comparisons with the original printf():
-	"La función se comparará con el printf() original para verificar su comportamiento."
-- 
+	"La función se comparará con el printf() original para verificar su comportamiento."¡
 */
