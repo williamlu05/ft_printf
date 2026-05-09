@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 
 // Returns char representation of 'n' of base letter 'start'
-char	write_base16(unsigned long long n, char start)
+char	write_base16(unsigned long n, char start)
 {
 	if (n < 10)
 		return (n + '0');
@@ -34,8 +34,10 @@ int	ft_strlen(char *s)
 // Writes string 's' at file descriptor 'fd'
 int	ft_putstr_fd(char *s, int fd)
 {
-	if (!s || fd < 0)
+	if (fd < 0)
 		return (0);
+	if (s == NULL)
+		return (write(fd, "(null)", 6));
 	return (write(fd, s, ft_strlen(s)));
 }
 

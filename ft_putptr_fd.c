@@ -12,12 +12,13 @@
 
 #include "ft_printf.h"
 
-int	ft_putptr_fd(unsigned long long n, int fd)
+int	ft_putptr_fd(unsigned long n, int fd)
 {
 	int	result;
 
-	result = 0;
-	result += ft_putstr_fd("0x", 1);
+	if (n == 0)
+		return (ft_putstr_fd("(nil)", fd));
+	result = ft_putstr_fd("0x", fd);
 	if (result < 0)
 		return (-1);
 	result += ft_putnbr_base16_fd(n, fd, 'a');

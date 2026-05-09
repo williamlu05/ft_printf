@@ -52,7 +52,7 @@ int	ft_printf(char const *format, ...)
 		if (*format == '%')
 		{
 			conversion = interpret_conversion(++format, &args);
-			if (conversion == -1)
+			if (conversion < 0)
 				return (-1);
 			written += conversion;
 		}
@@ -68,14 +68,22 @@ int	ft_printf(char const *format, ...)
 #include <stdio.h>
 int main(void)// int argc, char **argv
 {
-	ft_printf("%i", ft_printf("estoy hablando%% con la persona %x, %p: ", 2147483647, 0));
+	ft_printf("%i", ft_printf("estoy hablando%% con la persona %x: ", 2147483647, 0));
 	printf("\n");
 
 	//char string[20] = "hola";
-	printf("%i", printf("estoy hablando%% con la persona %x, %s: ", 2147483647, NULL));
+	printf("%i", printf("estoy hablando%% con la persona %x, %s: ", 2147483647, "HOLA"));
+
+	char *str = NULL;
+    void *ptr = NULL;
+
+	printf("\n");
+    printf("String nulo (%%s): %s\n", str);
+    printf("Puntero nulo (%%p): %p\n", ptr);
+
+    return (0);
 }
 */
-
 /*
 PLANNING:
 

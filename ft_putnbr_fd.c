@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	ft_putnbr_base16_fd(unsigned long long n, int fd, char base)
+int	ft_putnbr_base16_fd(unsigned long n, int fd, char base)
 {
 	int		result;
 	char	number;
