@@ -12,65 +12,84 @@
 
 #include "ft_printf.h"
 
+// Writes signed hex number at file descriptor 'fd', ret -1 if failed
 int	ft_putnbr_base16_fd(unsigned long n, int fd, char base)
 {
 	int		result;
-	char	number;
+	int		temp;
 
-	result = 1;
+	result = 0;
 	if (n < 16)
-	{
-		number = write_base16(n, base);
-		ft_putchar_fd(number, fd);
-		return (result);
-	}
-	number = write_base16(n % 16, base);
-	result += ft_putnbr_base16_fd(n / 16, fd, base);
-	ft_putchar_fd(number, fd);
-	return (result);
+		return (ft_putchar_fd(write_base16(n, base), fd));
+	temp = ft_putnbr_base16_fd(n / 16, fd, base);
+	if (temp < 0)
+		return (-1);
+	result = temp;
+	temp = ft_putchar_fd(write_base16(n % 16, base), fd);
+	if (temp < 0)
+		return (-1);
+	return (result + temp);
 }
 
+// Writes unsigned number at file descriptor 'fd', ret -1 if failed
 int	ft_putnbr_unsigned_fd(unsigned int n, int fd)
 {
 	int		result;
-	char	number;
+	int		temp;
 
-	result = 1;
 	if (n < 10)
+		return (ft_putchar_fd(n + '0', fd));
+	temp = ft_putnbr_unsigned_fd(n / 10, fd);
+	if (temp < 0)
+		return (-1);
+	result = temp;
+	temp = ft_putchar_fd((n % 10) + '0', fd);
+	if (temp < 0)
+		return (-1);
+	return (result + temp);
+}
+
+int	base_cases(int *n, int fd)
+{
+	int	result;
+
+	result = 0;
+	if (*n < 0)
 	{
-		number = n + '0';
-		ft_putchar_fd(number, fd);
-		return (result);
+		*n = -1 * (*n);
+		result += ft_putchar_fd('-', fd);
+		if (result < 0)
+			return (-1);
 	}
-	number = (n % 10) + '0';
-	result += ft_putnbr_unsigned_fd(n / 10, fd);
-	ft_putchar_fd(number, fd);
+	if (*n < 10)
+	{
+		result += ft_putchar_fd(*n + '0', fd);
+		if (result < 0)
+			return (-1);
+	}
 	return (result);
 }
 
-// writes number at file descriptor 'fd'
+// Writes signed number at file descriptor 'fd', ret -1 if failed
 int	ft_putnbr_fd(int n, int fd)
 {
-	char	number;
 	int		result;
+	int		temp;
 
-	result = 1;
 	if (n == -2147483648)
 		return (ft_putstr_fd("-2147483648", fd));
-	if (n < 0)
-	{
-		n = -n;
-		ft_putchar_fd('-', fd);
-		result++;
-	}
-	if (n <= 9)
-	{
-		number = n + '0';
-		ft_putchar_fd(number, fd);
-		return (result);
-	}
-	number = (n % 10) + '0';
-	result += ft_putnbr_fd(n / 10, fd);
-	ft_putchar_fd(number, fd);
-	return (result);
+	temp = base_cases(&n, fd);
+	if (temp < 0)
+		return (-1);
+	if (temp > 0 && n < 10)
+		return (temp);
+	result = temp;
+	temp = ft_putnbr_fd(n / 10, fd);
+	if (temp < 0)
+		return (-1);
+	result += temp;
+	temp = ft_putchar_fd((n % 10) + '0', fd);
+	if (temp < 0)
+		return (-1);
+	return (result + temp);
 }
