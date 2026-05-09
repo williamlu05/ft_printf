@@ -31,7 +31,7 @@ int	ft_strlen(char *s)
 	return (result);
 }
 
-// Writes string 's' at file descriptor 'fd'
+// Writes string 's' at file descriptor 'fd', ret -1 if failed
 int	ft_putstr_fd(char *s, int fd)
 {
 	if (fd < 0)
@@ -41,7 +41,7 @@ int	ft_putstr_fd(char *s, int fd)
 	return (write(fd, s, ft_strlen(s)));
 }
 
-// Writes char at file descriptor 'fd'
+// Writes char at file descriptor 'fd', ret -1 if failed
 int	ft_putchar_fd(char c, int fd)
 {
 	if (fd < 0)
