@@ -45,6 +45,8 @@ int	ft_printf(char const *format, ...)
 	int		written;
 	int		conversion;
 
+	if (!format)
+		return (-1);
 	written = 0;
 	va_start(args, format);
 	while (*format)
@@ -62,4 +64,11 @@ int	ft_printf(char const *format, ...)
 	}
 	va_end(args);
 	return (written);
+}
+
+#include <stdio.h>
+int main(void)
+{
+	//int result = ft_printf(0);
+	int result2 = printf(0);
 }
