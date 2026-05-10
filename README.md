@@ -27,15 +27,26 @@ El resto de algoritmos y estructuras empleadas son elementales.
 - `make fclean`: Elimina los archivos objeto y el archivo de la librería `libftprintf.a`.
 - `make re`: Realiza un `fclean` seguido de un `all` para recompilar todo el proyecto.
 
-Además, aquí tiene un pequeño programa main para poder ver las comparaciones entre la original y la recreación del printf
+Además, aquí tiene un pequeño programa main para poder ver las comparaciones entre la original y la recreación del printf, debe descomentar las partes que desea probar.
 ```
 int main(void)// int argc, char **argv
+#include <stdio.h>
+int main(void)
 {
+	/*
+	// PRUEBA DE GESTIÓN DE ERRORES
+	// close(1); // si quieres ver la gestión de fallos del 'write'
+    int result_ft = ft_printf("estoy hablando%a con la persona %x: ", 109);
+    fprintf(stderr, "Valor devuelto por ft_printf: %d\n", result_ft);
+	*/ 
+	/*
+	// PRUEBA DE HEXADECIMALES
     int ret1 = ft_printf("estoy hablando%% con la persona %x: ", 109);
     printf("ft_printf returned: %d\n", ret1);
     int ret2 = printf("estoy hablando%% con la persona %x: ", 109);
     printf("printf returned: %d\n", ret2);
-    return (0);
+    */
+	return (0);
 }
 ```
 
